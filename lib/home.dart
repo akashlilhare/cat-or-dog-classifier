@@ -49,19 +49,10 @@ class _HomeState extends State<Home> {
     super.dispose();
   }
 
-  pickImage() async {
-    var image = await picker.getImage(source: ImageSource.camera);
-    print(image);
-    if (image == null) return null;
-    setState(() {
-      _image = File(image.path);
-    });
-    detectImage(_image);
-  }
 
-  pickGalleryImage() async {
-    print("akash");
-    var image = await picker.getImage(source: ImageSource.gallery);
+  pickImage(ImageSource source) async {
+
+    var image = await picker.getImage(source: source);
     print(image.path);
     if (image == null) return null;
     setState(() {
@@ -130,7 +121,7 @@ class _HomeState extends State<Home> {
                       ),
               ),
               GestureDetector(
-                onTap: () => pickImage(),
+                onTap: () => pickImage(ImageSource.camera),
                 child: Container(
                   width: width - 200,
                   alignment: Alignment.center,
@@ -155,7 +146,7 @@ class _HomeState extends State<Home> {
                 height: 10,
               ),
               GestureDetector(
-                onTap: () => pickGalleryImage(),
+                onTap: () => pickImage(ImageSource.gallery),
                 child: Container(
                   width: width - 200,
                   alignment: Alignment.center,
